@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brennon Loh — Uphill, Honestly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E7E2D2;
+    --paper-warm:#DFD9C6;
+    --ink:#232A20;
+    --ink-soft:#4B5347;
+    --rust:#9C5B3C;
+    --ochre:#C98A2B;
+    --slate:#5B6B66;
+    --night:#1B2420;
+    --night-2:#222E27;
+    --line:rgba(35,42,32,0.14);
+    --paper-rgb:231,226,210;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--rust); color:var(--paper);}
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.02em;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  @media (max-width:640px){ .wrap{padding:0 22px;} }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 32px;
+    mix-blend-mode:difference;
+    color:#fff;
+  }
+  nav .brand{font-family:'Fraunces', serif; font-size:15px; font-weight:500;}
+  nav .links{display:flex; gap:26px; font-size:12px; text-transform:uppercase; letter-spacing:0.14em;}
+  nav a{text-decoration:none; opacity:0.85;}
+  nav a:hover{opacity:1;}
+  @media (max-width:640px){ nav .links{gap:14px;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(201,138,43,0.18), transparent 60%),
+      linear-gradient(180deg, var(--paper) 0%, var(--paper-warm) 100%);
+  }
+  #topo{
+    position:absolute; inset:0; width:100%; height:100%;
+    stroke:var(--ink); opacity:0.5;
+  }
+  #topo path{
+    fill:none;
+    stroke-width:1;
+    stroke-dasharray:2600;
+    stroke-dashoffset:2600;
+    animation:draw 3.6s cubic-bezier(.3,.7,.3,1) forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .hero-content{
+    position:relative; z-index:2;
+    padding:0 32px 64px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--rust);
+    margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{
+    content:''; width:26px; height:1px; background:var(--rust);
+  }
+  .hero h1{
+    font-size:clamp(40px, 8vw, 92px);
+    line-height:0.98;
+    max-width:14ch;
+  }
+  .tagline-row{
+    margin-top:26px;
+    display:flex; align-items:flex-start; gap:16px;
+    max-width:640px;
+  }
+  #tagline{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(17px, 2.4vw, 22px);
+    color:var(--ink-soft);
+    min-height:2.6em;
+  }
+  .reroll{
+    flex-shrink:0;
+    margin-top:4px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:9px 14px;
+    border-radius:100px;
+    cursor:pointer;
+    transition:all .25s ease;
+    white-space:nowrap;
+  }
+  .reroll:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+
+  .scroll-cue{
+    position:absolute; bottom:24px; right:32px; z-index:2;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px;
+  }
+  .scroll-cue .bar{width:1px; height:34px; background:var(--ink-soft); position:relative; overflow:hidden;}
+  .scroll-cue .bar::after{content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--rust); animation:cue 1.8s ease-in-out infinite;}
+  @keyframes cue{ 0%{top:-100%;} 60%{top:100%;} 100%{top:100%;} }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:110px 0;}
+  .divider{
+    display:flex; align-items:center; gap:18px;
+    margin-bottom:52px;
+  }
+  .divider .stat{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--rust); letter-spacing:0.08em; white-space:nowrap;
+  }
+  .divider .line{height:1px; background:var(--line); flex:1;}
+  .divider h2{font-size:clamp(26px, 4vw, 38px);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:64px;
+    align-items:start;
+  }
+  @media (max-width:800px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:56ch;
+  }
+  .about-grid p + p{ margin-top:18px; }
+  .about-grid strong{color:var(--ink); font-weight:500;}
+  .stat-card{
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:26px 24px;
+    background:rgba(255,255,255,0.25);
+  }
+  .stat-card .k{font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate);}
+  .stat-card .v{font-family:'Fraunces', serif; font-size:30px; margin-top:4px; color:var(--ink);}
+  .stat-card + .stat-card{margin-top:14px;}
+
+  /* ---------- FIELD NOTES (rotating captions) ---------- */
+  .notes-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  @media (max-width:900px){ .notes-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .notes-grid{grid-template-columns:1fr;} }
+  .note-card{
+    position:relative;
+    border-radius:6px;
+    overflow:hidden;
+    aspect-ratio:4/5;
+    background:var(--night);
+    display:flex; align-items:flex-end;
+    padding:22px;
+    isolation:isolate;
+  }
+  .note-card svg{position:absolute; inset:0; width:100%; height:100%; z-index:0;}
+  .note-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; opacity:0.9;}
+  .note-card::after{
+    content:''; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, transparent 30%, rgba(15,20,15,0.86) 100%);
+  }
+  .note-card .txt{position:relative; z-index:2; color:#EFEADE;}
+  .note-card .cap{
+    color:#F1EEE2;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:16px;
+    line-height:1.4;
+  }
+  .note-card .loc{
+    color:#C9A66B;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-top:10px;
+    display:block;
+  }
+  .notes-foot{
+    margin-top:26px; display:flex; align-items:center; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--slate);
+  }
+  .notes-foot a{text-decoration:none; border-bottom:1px solid var(--slate); padding-bottom:1px;}
+  .notes-foot a:hover{color:var(--rust); border-color:var(--rust);}
+
+  /* ---------- FILMS ---------- */
+  .films-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+  @media (max-width:900px){ .films-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .films-grid{grid-template-columns:1fr;} }
+  .film{
+    position:relative;
+    border-radius:6px;
+    overflow:hidden;
+    aspect-ratio:16/9;
+    background:#000;
+    cursor:pointer;
+  }
+  .film img{width:100%; height:100%; object-fit:cover; opacity:0.82; transition:opacity .3s, transform .5s;}
+  .film:hover img{opacity:1; transform:scale(1.04);}
+  .film .play{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  }
+  .film .play span{
+    width:52px; height:52px; border-radius:50%;
+    background:rgba(231,226,210,0.92);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .25s;
+  }
+  .film:hover .play span{transform:scale(1.1);}
+  .film .play svg{width:16px; height:16px; fill:var(--night); margin-left:2px;}
+  .film iframe{width:100%; height:100%; border:0; position:absolute; inset:0;}
+  .film .idx{
+    position:absolute; top:12px; left:12px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:#F1EEE2;
+    background:rgba(0,0,0,0.35); padding:3px 8px; border-radius:100px; letter-spacing:0.06em;
+  }
+  .film .cap{
+    position:absolute; left:0; right:0; bottom:0; z-index:1;
+    padding:30px 14px 12px;
+    background:linear-gradient(180deg, transparent, rgba(10,14,10,0.88));
+  }
+  .film .cap .t{font-family:'Fraunces', serif; font-size:14px; color:#F1EEE2; line-height:1.3;}
+  .film .cap .d{font-family:'IBM Plex Mono', monospace; font-size:10px; color:#C9A66B; letter-spacing:0.06em; margin-top:4px; display:block;}
+
+  /* ---------- MILES (Strava) ---------- */
+  .miles{
+    background:var(--night);
+    color:var(--paper);
+    border-radius:10px;
+    padding:56px;
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:40px;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+  }
+  @media (max-width:800px){ .miles{grid-template-columns:1fr; padding:38px 28px;} }
+  .miles::before{
+    content:'';
+    position:absolute; right:-10%; top:-20%; width:60%; height:140%;
+    background:radial-gradient(circle, rgba(201,138,43,0.16), transparent 65%);
+  }
+  .miles h3{
+    font-size:clamp(24px,3.4vw,32px);
+    color:var(--paper);
+    position:relative; z-index:1;
+  }
+  .miles p{color:#C7CFC7; font-size:15px; max-width:44ch; margin-top:14px; position:relative; z-index:1;}
+  .miles .cta{
+    display:inline-flex; align-items:center; gap:10px;
+    margin-top:26px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--night);
+    background:var(--ochre);
+    padding:13px 22px; border-radius:100px;
+    text-decoration:none;
+    position:relative; z-index:1;
+  }
+  .miles-stats{
+    display:grid; grid-template-columns:1fr 1fr; gap:20px;
+    position:relative; z-index:1;
+  }
+  .miles-stats .k{font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:#8FA095;}
+  .miles-stats .v{font-family:'Fraunces', serif; font-size:26px; margin-top:6px;}
+
+  /* ---------- PLATFORMS ---------- */
+  .plat-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+  }
+  @media (max-width:800px){ .plat-grid{grid-template-columns:repeat(2,1fr);} }
+  .plat{
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px 22px;
+    text-decoration:none;
+    color:var(--ink);
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:130px;
+    transition:border-color .25s, transform .25s;
+  }
+  .plat:hover{border-color:var(--rust); transform:translateY(-3px);}
+  .plat .name{font-family:'Fraunces', serif; font-size:19px;}
+  .plat .desc{font-size:13px; color:var(--ink-soft); margin-top:8px;}
+  .plat .go{margin-top:16px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--rust); letter-spacing:0.06em; text-transform:uppercase;}
+
+  /* ---------- QUOTE BAND ---------- */
+  .quote-band{
+    background:var(--paper-warm);
+    padding:100px 0;
+    text-align:center;
+  }
+  .quote-band blockquote{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(24px, 4vw, 40px);
+    max-width:16ch;
+    margin:0 auto;
+    color:var(--ink);
+    line-height:1.3;
+  }
+  .quote-band cite{
+    display:block;
+    margin-top:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-style:normal;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--slate);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--night);
+    color:#B9C2BB;
+    padding:70px 0 34px;
+  }
+  footer h3{color:var(--paper); font-size:26px; max-width:16ch;}
+  footer .foot-links{
+    display:flex; flex-wrap:wrap; gap:10px 26px;
+    margin:30px 0 50px;
+  }
+  footer .foot-links a{
+    text-decoration:none; color:#DCE2DA; font-size:14px;
+    border-bottom:1px solid transparent;
+  }
+  footer .foot-links a:hover{border-color:var(--ochre); color:var(--ochre);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid rgba(255,255,255,0.1);
+    padding-top:24px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:#7C8880;
+    flex-wrap:wrap; gap:10px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">BRENNON LOH</div>
+  <div class="links">
+    <a href="#about">About</a>
+    <a href="#notes">Field Notes</a>
+    <a href="#films">Films</a>
+    <a href="#miles">The Miles</a>
+    <a href="#connect">Connect</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <svg id="topo" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <path d="M-50,620 C150,560 300,660 480,600 C660,540 760,460 950,500 C1100,530 1180,470 1260,500" />
+    <path d="M-50,680 C180,610 340,700 520,650 C700,600 820,510 1000,560 C1140,600 1200,540 1280,560" style="animation-delay:0.15s"/>
+    <path d="M-50,540 C160,470 330,560 500,500 C680,440 800,360 980,410 C1120,450 1200,390 1280,420" style="animation-delay:0.3s"/>
+    <path d="M-50,460 C170,390 320,470 490,410 C670,350 790,280 970,320 C1110,350 1190,300 1280,330" style="animation-delay:0.45s"/>
+    <path d="M-50,760 C200,700 360,780 540,730 C720,680 840,600 1020,640 C1160,670 1220,620 1290,640" style="animation-delay:0.05s"/>
+  </svg>
+  <div class="hero-content">
+    <div class="eyebrow">Trail runner &nbsp;·&nbsp; Ultra distance &nbsp;·&nbsp; Singapore</div>
+    <h1>Uphill,<br>honestly.</h1>
+    <div class="tagline-row">
+      <p id="tagline" class="mono" style="font-family:'Fraunces',serif; font-style:italic;"></p>
+      <button class="reroll" onclick="rerollTagline()">↻ another one</button>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="bar"></span> scroll</div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="divider">
+      <span class="stat mono">ELEV. 0M</span>
+      <span class="line"></span>
+      <h2>The short version</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div>
+        <p>I didn't start running mountains to find answers. If anything, I started with more questions than I knew what to do with — and somewhere on a climb that wouldn't end, I noticed the questions got quieter. Not answered. Just <strong>quieter</strong>.</p>
+        <p>Ultra marathons in the mountains are my thing now — not because I'm chasing a finish line, but because the mountain has a way of stripping things back to what's actually true: your breath, your legs, your thoughts, in that order. <strong>I'm still figuring out who I am out here.</strong> Still asking why. I've just stopped expecting the trail to answer quickly.</p>
+        <p>Somewhere along the way, stoic philosophy started making a lot more sense than it used to. Not as a performance mindset — more as permission. Permission to suffer well, to let go of what I can't control, and to keep showing up without needing it to look impressive.</p>
+        <p>This is a record of that, kept honestly. No finish-line hero shots pretending it was easy. Just the climbing.</p>
+      </div>
+      <div>
+        <div class="stat-card">
+          <div class="k">Current pursuit</div>
+          <div class="v">Mountain ultras</div>
+        </div>
+        <div class="stat-card">
+          <div class="k">Home base</div>
+          <div class="v">Singapore</div>
+        </div>
+        <div class="stat-card">
+          <div class="k">Guiding idea</div>
+          <div class="v">Amor fati</div>
+        </div>
+        <div class="stat-card">
+          <div class="k">On the record</div>
+          <div class="v" style="font-size:19px; line-height:1.5;">Lavaredo Ultra Trail '19 (Italy)<br>Mt Fuji 100 '25 (Japan)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUOTE BAND ================= -->
+<div class="quote-band">
+  <div class="wrap">
+    <blockquote id="bigquote" class="reveal"></blockquote>
+    <cite>— a note to self, somewhere above 2,000m</cite>
+  </div>
+</div>
+
+<!-- ================= FIELD NOTES ================= -->
+<section id="notes">
+  <div class="wrap">
+    <div class="divider">
+      <span class="stat mono">CHECKPOINT 2</span>
+      <span class="line"></span>
+      <h2>Field notes</h2>
+    </div>
+    <div class="notes-grid" id="notesGrid"></div>
+    <div class="notes-foot">
+      <span>Six frames, reshuffled on every visit.</span>
+      <a href="https://www.instagram.com/brennon.loh" target="_blank" rel="noopener">the real gallery is on Instagram →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FILMS ================= -->
+<section id="films">
+  <div class="wrap">
+    <div class="divider">
+      <span class="stat mono">CHECKPOINT 3</span>
+      <span class="line"></span>
+      <h2>From the trail</h2>
+    </div>
+    <div class="films-grid" id="filmsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= MILES / STRAVA ================= -->
+<section id="miles">
+  <div class="wrap">
+    <div class="miles">
+      <div>
+        <h3>The training doesn't lie, even on the slow days.</h3>
+        <p>Every climb, every long slow Sunday, every session that didn't go to plan — logged honestly. Follow the build toward the next start line.</p>
+        <a class="cta" href="https://www.strava.com/athletes/96183750" target="_blank" rel="noopener">Follow on Strava ↗</a>
+      </div>
+      <div class="miles-stats">
+        <div><div class="k">Discipline</div><div class="v">Running</div></div>
+        <div><div class="k">Also</div><div class="v">Cycling</div></div>
+        <div><div class="k">And</div><div class="v">Walking</div></div>
+        <div><div class="k">Terrain</div><div class="v">Vertical</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLATFORMS ================= -->
+<section id="connect">
+  <div class="wrap">
+    <div class="divider">
+      <span class="stat mono">CHECKPOINT 4</span>
+      <span class="line"></span>
+      <h2>Where the rest lives</h2>
+    </div>
+    <div class="plat-grid">
+      <a class="plat" href="https://www.strava.com/athletes/96183750" target="_blank" rel="noopener">
+        <div>
+          <div class="name">Strava</div>
+          <div class="desc">Training logs, routes & the honest miles.</div>
+        </div>
+        <div class="go">Follow the training →</div>
+      </a>
+      <a class="plat" href="https://www.instagram.com/brennon.loh" target="_blank" rel="noopener">
+        <div>
+          <div class="name">Instagram</div>
+          <div class="desc">Moments from the climbs, unfiltered captions.</div>
+        </div>
+        <div class="go">See the moments →</div>
+      </a>
+      <a class="plat" href="https://www.flickr.com/photos/styles-for-miles/" target="_blank" rel="noopener">
+        <div>
+          <div class="name">Flickr</div>
+          <div class="desc">Slower photography, from the trail and beyond.</div>
+        </div>
+        <div class="go">Browse the archive →</div>
+      </a>
+      <a class="plat" href="https://yourshot.nationalgeographic.com/profile/1306608/" target="_blank" rel="noopener">
+        <div>
+          <div class="name">Nat Geo Your Shot</div>
+          <div class="desc">A few frames worth a longer look.</div>
+        </div>
+        <div class="go">View the shots →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Still climbing. Still asking why.</h3>
+    <div class="foot-links">
+      <a href="https://www.strava.com/athletes/96183750" target="_blank" rel="noopener">Strava</a>
+      <a href="https://www.instagram.com/brennon.loh" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.flickr.com/photos/styles-for-miles/" target="_blank" rel="noopener">Flickr</a>
+      <a href="https://yourshot.nationalgeographic.com/profile/1306608/" target="_blank" rel="noopener">Nat Geo Your Shot</a>
+      <a href="#films">YouTube films</a>
+    </div>
+    <div class="foot-bottom">
+      <span>BRENNON LOH — TRAIL &amp; ULTRA</span>
+      <span id="clock" class="mono"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------------- DATA ---------------- */
+const taglines = [
+  "Amor fati, one climb at a time.",
+  "The trail doesn't owe me an easy day — and neither does growing.",
+  "Control the effort. Release the outcome.",
+  "Every summit is just a taller kind of humble.",
+  "I don't run from myself out here. I run into who I'm becoming.",
+  "Suffer well. Learn quietly. Repeat.",
+  "The mountain keeps no records. Neither should I.",
+  "Discipline is the pace I choose when no one's watching."
+];
+
+const bigQuotes = [
+  "You don't conquer a mountain. It just, for a moment, lets you pass.",
+  "The body quits in the mind first. I keep training the mind.",
+  "Not every climb needs a reason. Some just need showing up for.",
+  "What is in my control: the next step. That has always been enough.",
+  "I came for the finish lines. I stayed for who I am at mile 30.",
+  "Humility isn't weakness out here — it's just accuracy."
+];
+
+const notes = [
+  {img:"https://live.staticflickr.com/4332/36452410216_a897e05de3_b.jpg", cap:"Stood in the shadow of the tallest thing I've ever seen, and felt appropriately small.", loc:"Tibet, en route to EBC"},
+  {img:"https://live.staticflickr.com/4407/36498141525_715f362386_b.jpg", cap:"Some journeys aren't run. This one was walked, slowly, on someone else's timeline.", loc:"Tibetan highway"},
+  {img:"https://live.staticflickr.com/4356/35682916474_6de592b4aa_b.jpg", cap:"Borrowed a little of their patience before the climb got hard again.", loc:"Tibet, altitude unknown"},
+  {img:"https://live.staticflickr.com/4362/36344751762_97f13bac3d_b.jpg", cap:"Half Dome doesn't perform for you. It just sits there, and asks what you're made of.", loc:"Glacier Point, Yosemite"},
+  {img:"https://live.staticflickr.com/4359/36344506812_8391c5426c_b.jpg", cap:"The storm arrived before I did. We shared the rim anyway.", loc:"South Rim, Grand Canyon"},
+  {img:"https://live.staticflickr.com/4442/36447778661_b87f76bab1_b.jpg", cap:"Woke up at 4am to watch the sky do something I couldn't control. Good practice for race day.", loc:"Cappadocia, Turkey"},
+  {img:"https://live.staticflickr.com/4441/37078487665_ddf8efccd0_b.jpg", cap:"Two hundred strangers, one sunrise, zero need to be first.", loc:"Angkor Wat, Cambodia"},
+  {img:"https://live.staticflickr.com/4331/36907629172_70995c9bd0_b.jpg", cap:"Dry season, floating village — people build steady lives on moving ground. I take notes.", loc:"Tonle Sap, Cambodia"},
+  {img:"https://live.staticflickr.com/4350/36447333416_e240cbe3fd_b.jpg", cap:"Home turf, golden hour. The easy runs count too.", loc:"Labrador Park, Singapore"}
+];
+
+const videos = [
+  {id:"bQwN1G8WMpg", t:"TEASER — Mt Fuji 100 Miles", d:"2025 · 168km · 6,254m+ · cut-off 44h30m"},
+  {id:"YSu9hholYdA", t:"Lavaredo Ultra Trail", d:"2019 · Singapore to Cortina d'Ampezzo, Italy"},
+  {id:"oGXGuKD5jao", t:"Lavaredo — 120km / 5,800m+", d:"2019 · the full climb"},
+  {id:"tiXtZXu-Cbk", t:"Lavaredo Ultra Trail", d:"2019 · race day"},
+  {id:"S60sfp2i3SM", t:"Green Corridor — Track 15 (Mandai)", d:"Aug 2021 · 43km · 670m+"},
+  {id:"DlMRMt4xcyM", t:"The Green Corridor", d:"Singapore's old railway line"},
+  {id:"9BGe0pBoW3A", t:"Lavaredo — raw footage", d:"2019 · unedited, as it happened"}
+];
+
+/* ---------------- HELPERS ---------------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+/* ---------------- HERO TAGLINE (rotates each load) ---------------- */
+const taglineEl = document.getElementById('tagline');
+function setTagline(){
+  taglineEl.style.opacity = 0;
+  setTimeout(()=>{
+    taglineEl.textContent = '"' + pick(taglines) + '"';
+    taglineEl.style.transition = 'opacity .5s ease';
+    taglineEl.style.opacity = 1;
+  }, 180);
+}
+setTagline();
+function rerollTagline(){ setTagline(); }
+
+/* ---------------- BIG QUOTE (rotates each load) ---------------- */
+document.getElementById('bigquote').textContent = '"' + pick(bigQuotes) + '"';
+
+/* ---------------- FIELD NOTES (6 of 9, reshuffled each load) ---------------- */
+const notesGrid = document.getElementById('notesGrid');
+const chosenNotes = shuffle(notes).slice(0,6);
+chosenNotes.forEach((n)=>{
+  const card = document.createElement('div');
+  card.className = 'note-card';
+  card.innerHTML = `<img src="${n.img}" alt="${n.loc}" loading="lazy">` +
+    `<div class="txt"><span class="cap">${n.cap}</span><span class="loc">${n.loc}</span></div>`;
+  notesGrid.appendChild(card);
+});
+
+/* ---------------- FILMS (shuffled order each load) ---------------- */
+const filmsGrid = document.getElementById('filmsGrid');
+shuffle(videos).forEach((v, i)=>{
+  const div = document.createElement('div');
+  div.className = 'film';
+  div.innerHTML = `
+    <span class="idx mono">0${i+1}</span>
+    <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.t}" loading="lazy">
+    <div class="play"><span><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span></div>
+    <div class="cap"><span class="t">${v.t}</span><span class="d">${v.d}</span></div>
+  `;
+  div.addEventListener('click', function loadEmbed(){
+    div.innerHTML = `<iframe src="https://www.youtube.com/embed/${v.id}?autoplay=1" title="${v.t}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  }, {once:true});
+  filmsGrid.appendChild(div);
+});
+
+/* ---------------- CLOCK ---------------- */
+function tick(){
+  const d = new Date();
+  document.getElementById('clock').textContent = d.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'}) + ' SGT';
+}
+tick(); setInterval(tick, 30000);
+
+/* ---------------- SCROLL REVEAL ---------------- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

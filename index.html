@@ -59,11 +59,38 @@
     mix-blend-mode:difference;
     color:#fff;
   }
-  nav .brand{font-family:'Fraunces', serif; font-size:15px; font-weight:500;}
-  nav .links{display:flex; gap:26px; font-size:12px; text-transform:uppercase; letter-spacing:0.14em;}
+  nav .brand{font-family:'Fraunces', serif; font-size:15px; font-weight:500; white-space:nowrap;}
+  nav .links{display:flex; gap:26px; font-size:12px; text-transform:uppercase; letter-spacing:0.14em; flex-wrap:nowrap; white-space:nowrap;}
   nav a{text-decoration:none; opacity:0.85;}
   nav a:hover{opacity:1;}
-  @media (max-width:640px){ nav .links{gap:14px;} }
+
+  .nav-toggle{
+    display:none; flex-direction:column; justify-content:center; gap:5px;
+    width:32px; height:32px; padding:0; border:0; background:none; cursor:pointer;
+    color:inherit; -webkit-tap-highlight-color:transparent;
+  }
+  .nav-toggle span{width:100%; height:1.5px; background:currentColor; display:block;}
+
+  .mobile-menu{
+    position:fixed; inset:0; z-index:49;
+    background:var(--night);
+    display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:8px;
+    padding:0 32px;
+    transform:translateY(-100%);
+    transition:transform .4s cubic-bezier(.3,.7,.3,1);
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{
+    text-decoration:none; color:var(--paper);
+    font-family:'Fraunces', serif; font-size:32px; padding:12px 0;
+  }
+  body.menu-open{overflow:hidden;}
+
+  @media (max-width:680px){
+    nav{padding:18px 22px;}
+    nav .links{display:none;}
+    .nav-toggle{display:flex;}
+  }
 
   /* ---------- HERO ---------- */
   .hero{
@@ -415,7 +442,17 @@
     <a href="#miles">The Miles</a>
     <a href="#connect">Connect</a>
   </div>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#notes">Field Notes</a>
+  <a href="#films">Films</a>
+  <a href="#miles">The Miles</a>
+  <a href="#connect">Connect</a>
+</div>
 
 <!-- ================= HERO ================= -->
 <header class="hero">
@@ -691,6 +728,20 @@ shuffle(videos).forEach((v, i)=>{
   }, {once:true});
   filmsGrid.appendChild(div);
 });
+
+/* ---------------- MOBILE NAV ---------------- */
+const mobileMenu = document.getElementById('mobileMenu');
+const navToggle = document.querySelector('.nav-toggle');
+function toggleMenu(){
+  const open = mobileMenu.classList.toggle('open');
+  document.body.classList.toggle('menu-open', open);
+  navToggle.setAttribute('aria-expanded', open);
+}
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('menu-open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}));
 
 /* ---------------- CLOCK ---------------- */
 function tick(){

@@ -214,6 +214,11 @@
   .stat-card .k{font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--slate);}
   .stat-card .v{font-family:'Fraunces', serif; font-size:30px; margin-top:4px; color:var(--ink);}
   .stat-card + .stat-card{margin-top:14px;}
+  .race-list{margin-top:6px;}
+  .race-row{padding:10px 0; border-top:1px solid var(--line);}
+  .race-row:first-child{border-top:0; padding-top:2px;}
+  .race-row .race-name{font-family:'Fraunces', serif; font-size:18px; color:var(--ink);}
+  .race-row .race-meta{display:block; margin-top:3px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.04em; color:var(--slate);}
 
   /* ---------- FIELD NOTES (rotating captions) ---------- */
   .notes-grid{
@@ -538,7 +543,16 @@
         </div>
         <div class="stat-card">
           <div class="k">On the record</div>
-          <div class="v" style="font-size:19px; line-height:1.5;">Lavaredo Ultra Trail '19 (Italy)<br>Mt Fuji 100 '25 (Japan)</div>
+          <div class="race-list">
+            <div class="race-row">
+              <span class="race-name">Lavaredo Ultra Trail</span>
+              <span class="race-meta">2019 · Italy · 120km / 5,800m+</span>
+            </div>
+            <div class="race-row">
+              <span class="race-name">Mt Fuji 100 (UTMF)</span>
+              <span class="race-meta">2025 · Japan · 168km / 6,254m+ · cut-off 44h30m</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

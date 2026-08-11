@@ -312,19 +312,22 @@
     color:var(--paper);
     border-radius:10px;
     padding:56px;
-    display:grid;
-    grid-template-columns:1.2fr 1fr;
-    gap:40px;
-    align-items:center;
     position:relative;
     overflow:hidden;
   }
-  @media (max-width:800px){ .miles{grid-template-columns:1fr; padding:38px 28px;} }
+  @media (max-width:800px){ .miles{padding:38px 28px;} }
   .miles::before{
     content:'';
     position:absolute; right:-10%; top:-20%; width:60%; height:140%;
     background:radial-gradient(circle, rgba(201,138,43,0.16), transparent 65%);
   }
+  .miles-top{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media (max-width:800px){ .miles-top{grid-template-columns:1fr;} }
   .miles h3{
     font-size:clamp(24px,3.4vw,32px);
     color:var(--paper);
@@ -348,6 +351,37 @@
   }
   .miles-stats .k{font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:#8FA095;}
   .miles-stats .v{font-family:'Fraunces', serif; font-size:26px; margin-top:6px;}
+
+  .longest-push{
+    position:relative; z-index:1;
+    margin-top:44px; padding-top:30px;
+    border-top:1px solid rgba(255,255,255,0.12);
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:12px 18px;
+  }
+  .longest-push .lp-label{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase;
+    letter-spacing:0.1em; color:#8FA095; width:100%;
+  }
+  .longest-push .lp-value{font-family:'Fraunces', serif; font-style:italic; font-size:24px; color:var(--ochre);}
+  .longest-push .lp-date{font-family:'IBM Plex Mono', monospace; font-size:12px; color:#C7CFC7;}
+
+  /* ---------- YEAR BARS ---------- */
+  .year-bars{margin-top:56px;}
+  .year-bars-head{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.12em; color:var(--slate); margin-bottom:20px;
+  }
+  .year-bar-row{
+    display:grid; grid-template-columns:64px 1fr 96px; align-items:center; gap:16px;
+    padding:12px 0;
+    border-top:1px solid var(--line);
+  }
+  .year-bar-row:last-child{border-bottom:1px solid var(--line);}
+  .year-bar-row .yr{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--ink-soft);}
+  .bar-track{height:8px; background:rgba(35,42,32,0.08); border-radius:100px; overflow:hidden;}
+  .bar-fill{height:100%; background:linear-gradient(90deg, var(--ochre), var(--rust)); border-radius:100px;}
+  .year-bar-row .yr-val{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); text-align:right; white-space:nowrap;}
+  @media (max-width:560px){ .year-bar-row{grid-template-columns:48px 1fr 76px; gap:10px;} }
 
   /* ---------- PLATFORMS ---------- */
   .plat-grid{
@@ -551,17 +585,59 @@
 <section id="miles">
   <div class="wrap">
     <div class="miles">
-      <div>
-        <h3>The training doesn't lie, even on the slow days.</h3>
-        <p>Five years of GPS data, 1,003 sessions, every long slow Sunday included — logged honestly since Sept 2021. Follow the build toward the next start line.</p>
-        <a class="cta" href="https://www.strava.com/athletes/96183750" target="_blank" rel="noopener">Follow on Strava ↗</a>
+      <div class="miles-top">
+        <div>
+          <h3>The training doesn't lie, even on the slow days.</h3>
+          <p>Five years of GPS data, 1,003 sessions, every long slow Sunday included — logged honestly since Sept 2021. Follow the build toward the next start line.</p>
+          <a class="cta" href="https://www.strava.com/athletes/96183750" target="_blank" rel="noopener">Follow on Strava ↗</a>
+        </div>
+        <div class="miles-stats">
+          <div><div class="k">Lifetime distance</div><div class="v">15,142 km</div></div>
+          <div><div class="k">Elevation gained</div><div class="v">605,811 m</div></div>
+          <div><div class="k">That's roughly</div><div class="v">68× Everest</div></div>
+          <div><div class="k">Hours moving</div><div class="v">2,291 hrs</div></div>
+        </div>
       </div>
-      <div class="miles-stats">
-        <div><div class="k">Lifetime distance</div><div class="v">15,142 km</div></div>
-        <div><div class="k">Elevation gained</div><div class="v">605,811 m</div></div>
-        <div><div class="k">That's roughly</div><div class="v">68× Everest</div></div>
-        <div><div class="k">Hours moving</div><div class="v">2,291 hrs</div></div>
+      <div class="longest-push">
+        <span class="lp-label mono">Longest single push</span>
+        <span class="lp-value">174.4 km · 8,116 m+</span>
+        <span class="lp-date mono">25 Apr 2025 — the day of Mt Fuji 100</span>
       </div>
+    </div>
+
+    <div class="year-bars reveal">
+      <div class="year-bars-head">Training by year</div>
+      <div class="year-bar-row">
+        <span class="yr">2021</span>
+        <div class="bar-track"><div class="bar-fill" style="width:26.8%"></div></div>
+        <span class="yr-val">903 km</span>
+      </div>
+      <div class="year-bar-row">
+        <span class="yr">2022</span>
+        <div class="bar-track"><div class="bar-fill" style="width:87.7%"></div></div>
+        <span class="yr-val">2,958 km</span>
+      </div>
+      <div class="year-bar-row">
+        <span class="yr">2023</span>
+        <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+        <span class="yr-val">3,372 km</span>
+      </div>
+      <div class="year-bar-row">
+        <span class="yr">2024</span>
+        <div class="bar-track"><div class="bar-fill" style="width:88.6%"></div></div>
+        <span class="yr-val">2,989 km</span>
+      </div>
+      <div class="year-bar-row">
+        <span class="yr">2025</span>
+        <div class="bar-track"><div class="bar-fill" style="width:87.2%"></div></div>
+        <span class="yr-val">2,940 km</span>
+      </div>
+      <div class="year-bar-row">
+        <span class="yr">2026*</span>
+        <div class="bar-track"><div class="bar-fill" style="width:58.7%"></div></div>
+        <span class="yr-val">1,980 km</span>
+      </div>
+      <div class="notes-foot" style="margin-top:14px;"><span>*2026 year-to-date, through early August.</span></div>
     </div>
   </div>
 </section>

@@ -136,36 +136,15 @@
     line-height:0.98;
     max-width:14ch;
   }
-  .tagline-row{
-    margin-top:26px;
-    display:flex; align-items:flex-start; gap:16px;
-    max-width:640px;
-  }
   #tagline{
+    margin-top:26px;
+    max-width:640px;
     font-family:'Fraunces', serif;
     font-style:italic;
     font-weight:400;
     font-size:clamp(17px, 2.4vw, 22px);
     color:var(--ink-soft);
-    min-height:2.6em;
   }
-  .reroll{
-    flex-shrink:0;
-    margin-top:4px;
-    border:1px solid var(--line);
-    background:transparent;
-    color:var(--ink-soft);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    padding:9px 14px;
-    border-radius:100px;
-    cursor:pointer;
-    transition:all .25s ease;
-    white-space:nowrap;
-  }
-  .reroll:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
 
   .scroll-cue{
     position:absolute; bottom:24px; right:32px; z-index:2;
@@ -436,6 +415,69 @@
     text-transform:uppercase;
     color:var(--slate);
   }
+  .quote-band cite em{font-style:italic;}
+
+  /* ---------- DICHOTOMY OF CONTROL ---------- */
+  .practice-intro{
+    font-size:17px; color:var(--ink-soft); max-width:60ch; margin-bottom:44px;
+  }
+  .dichotomy-input{
+    display:flex; flex-wrap:wrap; align-items:center; gap:14px;
+    padding-bottom:20px; margin-bottom:36px;
+    border-bottom:1px solid var(--line);
+  }
+  #dichotomyInput{
+    flex:1 1 280px;
+    min-width:0;
+    border:none; border-bottom:1px solid var(--ink-soft);
+    background:transparent;
+    padding:8px 2px;
+    font-family:'Fraunces', serif; font-style:italic; font-size:18px;
+    color:var(--ink);
+  }
+  #dichotomyInput:focus{outline:none; border-color:var(--rust);}
+  #dichotomyInput::placeholder{color:var(--slate); opacity:0.8;}
+  .dichotomy-sort{display:flex; gap:10px; flex-wrap:wrap;}
+  .d-btn{
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:9px 16px;
+    border-radius:100px;
+    cursor:pointer;
+    transition:all .2s ease;
+    white-space:nowrap;
+  }
+  .d-btn:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+  .d-btn[data-col="control"]:hover{background:var(--ochre); border-color:var(--ochre); color:var(--night);}
+  .d-btn[data-col="nocontrol"]:hover{background:var(--slate); border-color:var(--slate); color:var(--paper);}
+  .dichotomy-cols{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px;
+  }
+  @media (max-width:700px){ .dichotomy-cols{grid-template-columns:1fr; gap:32px;} }
+  .dichotomy-col h3{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; text-transform:uppercase; letter-spacing:0.12em;
+    font-weight:500;
+    padding-bottom:14px; margin-bottom:18px;
+    border-bottom:2px solid var(--line);
+  }
+  .dichotomy-col.control h3{color:var(--rust); border-color:var(--rust);}
+  .dichotomy-col.nocontrol h3{color:var(--slate); border-color:var(--line);}
+  .dichotomy-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .dichotomy-col li{
+    font-family:'Fraunces', serif; font-size:16px; line-height:1.4;
+    padding:12px 16px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:rgba(255,255,255,0.25);
+    animation:chipIn .4s ease;
+  }
+  @keyframes chipIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
 
   /* ---------- FOOTER ---------- */
   footer{
@@ -476,6 +518,7 @@
   <div class="brand">BRENNON LOH</div>
   <div class="links">
     <a href="#about">About</a>
+    <a href="#practice">Practice</a>
     <a href="#notes">Field Notes</a>
     <a href="#films">Films</a>
     <a href="#miles">The Miles</a>
@@ -487,6 +530,7 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about">About</a>
+  <a href="#practice">Practice</a>
   <a href="#notes">Field Notes</a>
   <a href="#films">Films</a>
   <a href="#miles">The Miles</a>
@@ -505,10 +549,7 @@
   <div class="hero-content">
     <div class="eyebrow">Trail runner &nbsp;·&nbsp; Ultra distance &nbsp;·&nbsp; Singapore</div>
     <h1>Uphill,<br>honestly.</h1>
-    <div class="tagline-row">
-      <p id="tagline" class="mono" style="font-family:'Fraunces',serif; font-style:italic;"></p>
-      <button class="reroll" onclick="rerollTagline()">↻ another one</button>
-    </div>
+    <p id="tagline">"Discipline is the pace I choose when no one's watching."</p>
   </div>
   <div class="scroll-cue"><span class="bar"></span> scroll</div>
 </header>
@@ -587,19 +628,61 @@
 <!-- ================= QUOTE BAND ================= -->
 <div class="quote-band">
   <div class="wrap">
-    <blockquote id="bigquote" class="reveal"></blockquote>
-    <cite>— a note to self, somewhere above 2,000m</cite>
+    <blockquote class="reveal">"The trick, William Potter, is not minding that it hurts."</blockquote>
+    <cite>— T.E. Lawrence, <em>Lawrence of Arabia</em> (1962)</cite>
   </div>
 </div>
+
+<!-- ================= PRACTICE: DICHOTOMY OF CONTROL ================= -->
+<section id="practice">
+  <div class="wrap">
+    <div class="divider">
+      <span class="stat mono">CHECKPOINT 2</span>
+      <span class="line"></span>
+      <h2>The dichotomy of control</h2>
+    </div>
+    <p class="practice-intro reveal">Epictetus's oldest exercise, still the hardest one. Some things are up to me. Most things aren't. Here's mine, still being sorted — try it with something of yours.</p>
+    <div class="dichotomy reveal">
+      <div class="dichotomy-input">
+        <input type="text" id="dichotomyInput" placeholder="Type something you're carrying right now…" maxlength="80">
+        <div class="dichotomy-sort">
+          <button class="d-btn" data-col="control" type="button">This, I can control</button>
+          <button class="d-btn" data-col="nocontrol" type="button">This, I can't</button>
+        </div>
+      </div>
+      <div class="dichotomy-cols">
+        <div class="dichotomy-col control">
+          <h3>In my control</h3>
+          <ul id="colControl">
+            <li>The next step</li>
+            <li>How I respond to the cramp</li>
+            <li>Whether I show up tomorrow</li>
+            <li>The effort, not the outcome</li>
+          </ul>
+        </div>
+        <div class="dichotomy-col nocontrol">
+          <h3>Not in my control</h3>
+          <ul id="colNoControl">
+            <li>The weather on race day</li>
+            <li>The mountain's terrain</li>
+            <li>Other runners' pace</li>
+            <li>Whether the watch battery lasts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ================= FIELD NOTES ================= -->
 <section id="notes">
   <div class="wrap">
     <div class="divider">
-      <span class="stat mono">CHECKPOINT 2</span>
+      <span class="stat mono">CHECKPOINT 3</span>
       <span class="line"></span>
       <h2>Field notes</h2>
     </div>
+    <p class="practice-intro reveal">Not the highlight reel. Just what I noticed while it was hard — the becoming, not the arriving.</p>
     <div class="notes-grid" id="notesGrid"></div>
     <div class="notes-foot">
       <span>Six frames, reshuffled on every visit.</span>
@@ -612,7 +695,7 @@
 <section id="films">
   <div class="wrap">
     <div class="divider">
-      <span class="stat mono">CHECKPOINT 3</span>
+      <span class="stat mono">CHECKPOINT 4</span>
       <span class="line"></span>
       <h2>From the trail</h2>
     </div>
@@ -703,7 +786,7 @@
 <section id="connect">
   <div class="wrap">
     <div class="divider">
-      <span class="stat mono">CHECKPOINT 4</span>
+      <span class="stat mono">CHECKPOINT 5</span>
       <span class="line"></span>
       <h2>Where the rest lives</h2>
     </div>
@@ -767,26 +850,6 @@
 
 <script>
 /* ---------------- DATA ---------------- */
-const taglines = [
-  "Amor fati, one climb at a time.",
-  "The trail doesn't owe me an easy day — and neither does growing.",
-  "Control the effort. Release the outcome.",
-  "Every summit is just a taller kind of humble.",
-  "I don't run from myself out here. I run into who I'm becoming.",
-  "Suffer well. Learn quietly. Repeat.",
-  "The mountain keeps no records. Neither should I.",
-  "Discipline is the pace I choose when no one's watching."
-];
-
-const bigQuotes = [
-  "You don't conquer a mountain. It just, for a moment, lets you pass.",
-  "The body quits in the mind first. I keep training the mind.",
-  "Not every climb needs a reason. Some just need showing up for.",
-  "What is in my control: the next step. That has always been enough.",
-  "I came for the finish lines. I stayed for who I am at mile 30.",
-  "Humility isn't weakness out here — it's just accuracy."
-];
-
 const notes = [
   {img:"https://live.staticflickr.com/4332/36452410216_a897e05de3_b.jpg", cap:"Stood in the shadow of the tallest thing I've ever seen, and felt appropriately small.", loc:"Tibet, en route to EBC"},
   {img:"https://live.staticflickr.com/4407/36498141525_715f362386_b.jpg", cap:"Some journeys aren't run. This one was walked, slowly, on someone else's timeline.", loc:"Tibetan highway"},
@@ -824,23 +887,26 @@ function shuffle(arr){
   }
   return a;
 }
-function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-/* ---------------- HERO TAGLINE (rotates each load) ---------------- */
-const taglineEl = document.getElementById('tagline');
-function setTagline(){
-  taglineEl.style.opacity = 0;
-  setTimeout(()=>{
-    taglineEl.textContent = '"' + pick(taglines) + '"';
-    taglineEl.style.transition = 'opacity .5s ease';
-    taglineEl.style.opacity = 1;
-  }, 180);
-}
-setTagline();
-function rerollTagline(){ setTagline(); }
-
-/* ---------------- BIG QUOTE (rotates each load) ---------------- */
-document.getElementById('bigquote').textContent = '"' + pick(bigQuotes) + '"';
+/* ---------------- DICHOTOMY OF CONTROL (practice, not just a quote) ---------------- */
+const dInput = document.getElementById('dichotomyInput');
+const dControlList = document.getElementById('colControl');
+const dNoControlList = document.getElementById('colNoControl');
+document.querySelectorAll('.d-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const val = dInput.value.trim();
+    if(!val){ dInput.focus(); return; }
+    const li = document.createElement('li');
+    li.textContent = val;
+    const target = btn.dataset.col === 'control' ? dControlList : dNoControlList;
+    target.prepend(li);
+    dInput.value = '';
+    dInput.focus();
+  });
+});
+dInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter') e.preventDefault();
+});
 
 /* ---------------- FIELD NOTES (6 of 9, reshuffled each load) ---------------- */
 const notesGrid = document.getElementById('notesGrid');

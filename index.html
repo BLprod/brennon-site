@@ -247,6 +247,50 @@
   .notes-foot a{text-decoration:none; border-bottom:1px solid var(--slate); padding-bottom:1px;}
   .notes-foot a:hover{color:var(--rust); border-color:var(--rust);}
 
+  /* ---------- MEMENTO MORI (upbeat counterpart to Field Notes) ---------- */
+  .momento-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  @media (max-width:900px){ .momento-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .momento-grid{grid-template-columns:1fr;} }
+  .momento-card{
+    position:relative;
+    border-radius:6px;
+    overflow:hidden;
+    aspect-ratio:4/5;
+    display:flex; align-items:flex-end;
+    padding:22px;
+    isolation:isolate;
+  }
+  .momento-card::after{
+    content:''; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, transparent 45%, rgba(74,42,10,0.5) 100%);
+  }
+  .momento-card .txt{position:relative; z-index:2;}
+  .momento-card .cap{
+    color:#4A2A0A;
+    font-family:'Fraunces', serif;
+    font-size:16px;
+    line-height:1.4;
+  }
+  .momento-card .loc{
+    color:#7A4614;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-top:10px;
+    display:block;
+  }
+  .momento-card:nth-child(6n+1){background:linear-gradient(135deg, #F3D9A4, #E7A65C);}
+  .momento-card:nth-child(6n+2){background:linear-gradient(135deg, #F6C9B0, #D97F4E);}
+  .momento-card:nth-child(6n+3){background:linear-gradient(135deg, #F1E0B8, #C98A2B);}
+  .momento-card:nth-child(6n+4){background:linear-gradient(135deg, #F5D3B3, #E08B4B);}
+  .momento-card:nth-child(6n+5){background:linear-gradient(135deg, #FBE8C6, #DDA24A);}
+  .momento-card:nth-child(6n+6){background:linear-gradient(135deg, #F2CFA0, #C9723A);}
+
   /* ---------- FILMS ---------- */
   .films-grid{
     display:grid;
@@ -520,6 +564,7 @@
     <a href="#about">About</a>
     <a href="#practice">Practice</a>
     <a href="#notes">Field Notes</a>
+    <a href="#momento">Memento Mori</a>
     <a href="#films">Films</a>
     <a href="#miles">The Miles</a>
     <a href="#connect">Connect</a>
@@ -532,6 +577,7 @@
   <a href="#about">About</a>
   <a href="#practice">Practice</a>
   <a href="#notes">Field Notes</a>
+  <a href="#momento">Memento Mori</a>
   <a href="#films">Films</a>
   <a href="#miles">The Miles</a>
   <a href="#connect">Connect</a>
@@ -691,11 +737,34 @@
   </div>
 </section>
 
+<!-- ================= MEMENTO MORI ================= -->
+<section id="momento">
+  <div class="wrap">
+    <div class="divider">
+      <span class="stat mono">CHECKPOINT 4</span>
+      <span class="line"></span>
+      <h2>Memento mori</h2>
+    </div>
+    <p class="practice-intro reveal">Memento mori usually means "remember you'll die." I'd rather use it to remember I'm here. Not every page needs to be about the climb — some days are just good, and worth keeping for that alone.</p>
+    <div class="momento-grid" id="momentoGrid">
+      <div class="momento-card"><div class="txt"><span class="cap">Reserved for a good one.</span><span class="loc">Coming soon</span></div></div>
+      <div class="momento-card"><div class="txt"><span class="cap">Still deciding which memory earns this spot.</span><span class="loc">Coming soon</span></div></div>
+      <div class="momento-card"><div class="txt"><span class="cap">A day worth keeping — just not photographed yet.</span><span class="loc">Coming soon</span></div></div>
+      <div class="momento-card"><div class="txt"><span class="cap">This spot's for something that made me laugh.</span><span class="loc">Coming soon</span></div></div>
+      <div class="momento-card"><div class="txt"><span class="cap">Waiting on the next good one.</span><span class="loc">Coming soon</span></div></div>
+      <div class="momento-card"><div class="txt"><span class="cap">Room for a moment that wasn't about finishing anything.</span><span class="loc">Coming soon</span></div></div>
+    </div>
+    <div class="notes-foot">
+      <span>A running list of good days. Still filling it in.</span>
+    </div>
+  </div>
+</section>
+
 <!-- ================= FILMS ================= -->
 <section id="films">
   <div class="wrap">
     <div class="divider">
-      <span class="stat mono">CHECKPOINT 4</span>
+      <span class="stat mono">CHECKPOINT 5</span>
       <span class="line"></span>
       <h2>From the trail</h2>
     </div>
@@ -786,7 +855,7 @@
 <section id="connect">
   <div class="wrap">
     <div class="divider">
-      <span class="stat mono">CHECKPOINT 5</span>
+      <span class="stat mono">CHECKPOINT 6</span>
       <span class="line"></span>
       <h2>Where the rest lives</h2>
     </div>

@@ -1104,9 +1104,8 @@ function splitFlapReveal(el){
 if(!prefersReducedMotion){
   const flapObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
-      if(entry.isIntersecting){
+      if(entry.isIntersecting && !entry.target.classList.contains('flap-cycling')){
         splitFlapReveal(entry.target);
-        flapObserver.unobserve(entry.target);
       }
     });
   }, {threshold:0.4});

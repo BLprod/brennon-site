@@ -59,8 +59,12 @@
     mix-blend-mode:difference;
     color:#fff;
   }
-  nav .brand{font-family:'Fraunces', serif; font-size:15px; font-weight:500; white-space:nowrap;}
-  nav .brand-cn{font-size:13px; font-weight:400; opacity:0.75; margin-left:6px;}
+  nav .brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces', serif; font-size:15px; font-weight:500; white-space:nowrap;}
+  nav .brand-cn{font-size:45px; font-weight:500; opacity:1; line-height:1;}
+  nav .brand-cn .surname{font-size:1.3em; color:var(--rust); line-height:1;}
+  @media (max-width:1040px){
+    nav .brand-cn{font-size:32px;}
+  }
   nav .links{display:flex; gap:26px; font-size:12px; text-transform:uppercase; letter-spacing:0.14em; flex-wrap:nowrap; white-space:nowrap;}
   nav a{text-decoration:none; opacity:0.85;}
   nav a:hover{opacity:1;}
@@ -87,7 +91,7 @@
   }
   body.menu-open{overflow:hidden;}
 
-  @media (max-width:680px){
+  @media (max-width:1040px){
     nav{padding:18px 22px;}
     nav .links{display:none;}
     .nav-toggle{display:flex;}
@@ -562,7 +566,7 @@
 <body>
 
 <nav>
-  <div class="brand">BRENNON LOH <span class="brand-cn">羅毓鴻</span></div>
+  <div class="brand">BRENNON LOH <span class="brand-cn"><span class="surname">羅</span>毓鴻</span></div>
   <div class="links">
     <a href="#about">About</a>
     <a href="#practice">Practice</a>

@@ -198,6 +198,7 @@
   .race-row:first-child{border-top:0; padding-top:2px;}
   .race-row .race-name{font-family:'Fraunces', serif; font-size:18px; color:var(--ink);}
   .race-row .race-meta{display:block; margin-top:3px; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.04em; color:var(--slate);}
+  .race-name.flap-cycling{font-family:'IBM Plex Mono', monospace; font-size:16px; letter-spacing:0.02em;}
 
   /* ---------- FIELD NOTES (rotating captions) ---------- */
   .notes-grid{
@@ -1065,6 +1066,52 @@ const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
 }, {threshold:0.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------------- SPLIT-FLAP REVEAL (On the record, departures-board style) ---------------- */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FLAP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+function splitFlapReveal(el){
+  const finalText = el.textContent;
+  el.classList.add('flap-cycling');
+  el.innerHTML = '';
+  const spans = finalText.split('').map(ch=>{
+    const span = document.createElement('span');
+    span.textContent = ch === ' ' ? ' ' : ch;
+    el.appendChild(span);
+    return span;
+  });
+  let settled = 0;
+  spans.forEach((span, i)=>{
+    const finalChar = finalText[i];
+    if(finalChar === ' '){ settled++; return; }
+    const ticks = 6 + Math.floor(Math.random()*6);
+    let count = 0;
+    setTimeout(()=>{
+      const iv = setInterval(()=>{
+        if(count >= ticks){
+          span.textContent = finalChar;
+          clearInterval(iv);
+          settled++;
+          if(settled === spans.length) el.classList.remove('flap-cycling');
+        } else {
+          span.textContent = FLAP_CHARS[Math.floor(Math.random()*FLAP_CHARS.length)];
+          count++;
+        }
+      }, 45);
+    }, i * 35);
+  });
+}
+if(!prefersReducedMotion){
+  const flapObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        splitFlapReveal(entry.target);
+        flapObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.4});
+  document.querySelectorAll('.race-name').forEach(el=>flapObserver.observe(el));
+}
 </script>
 
 </body>

@@ -59,8 +59,8 @@
     mix-blend-mode:difference;
     color:#fff;
   }
-  nav .brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces', serif; font-size:15px; font-weight:500; white-space:nowrap;}
-  nav .brand-cn{font-size:45px; font-weight:500; opacity:1; line-height:1;}
+  nav .brand{display:flex; align-items:flex-start; gap:10px; font-family:'Fraunces', serif; font-size:15px; font-weight:500; white-space:nowrap;}
+  nav .brand-cn{display:flex; align-items:flex-start; font-size:45px; font-weight:500; opacity:1; line-height:1;}
   nav .brand-cn .surname{font-size:1.3em; color:var(--rust); line-height:1;}
   @media (max-width:1040px){
     nav .brand-cn{font-size:32px;}
@@ -566,7 +566,7 @@
 <body>
 
 <nav>
-  <div class="brand">BRENNON LOH <span class="brand-cn"><span class="surname">罗</span>毓鴻</span></div>
+  <div class="brand">BRENNON LOH <span class="brand-cn"><span class="surname">罗</span><span class="given-name">毓鴻</span></span></div>
   <div class="links">
     <a href="#about">About</a>
     <a href="#practice">Practice</a>

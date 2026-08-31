@@ -662,11 +662,11 @@
           <div class="race-list">
             <div class="race-row">
               <span class="race-name">Mt Fuji 100 (UTMF)</span>
-              <span class="race-meta">2025 · Japan · 174km · 8,116m+ / 8,027m− · cut-off 44h30m</span>
+              <span class="race-meta">2025 · Japan · 166km · 7,206m+ · finished in 40h52m37s (cut-off 44h30m)</span>
             </div>
             <div class="race-row">
               <span class="race-name">TransLantau</span>
-              <span class="race-meta">2024 · Hong Kong · 132km · 7,321m+ / 7,338m− · finished in 34h44m</span>
+              <span class="race-meta">2024 · Hong Kong · 126km · 6,100m+ · finished in 34h43m51s</span>
             </div>
             <div class="race-row">
               <span class="race-name">Rinjani 100</span>
@@ -998,11 +998,17 @@ const notes = [
   {img:"img/vda2022/vda5_finish.jpg", cap:"Forty-five hours later, still had enough left to shout about it.", loc:"Vielha, Val d'Aran finish"},
   {img:"img/rinjani2024/rinjani1_summit.jpg", cap:"Summit crested clean. The mountain would collect its due on the way down.", loc:"Rinjani Summit, 3,726m"},
   {img:"img/rinjani2024/rinjani2_arch.jpg", cap:"Never got to see this side of the arch. Some races end at a checkpoint instead.", loc:"Rinjani 100, before the start"},
-  {img:"img/rinjani2024/rinjani3_drink.jpg", cap:"One quiet drink before finding out what 100km of volcano actually costs.", loc:"Sembalun, pre-race"}
+  {img:"img/rinjani2024/rinjani3_drink.jpg", cap:"One quiet drink before finding out what 100km of volcano actually costs.", loc:"Sembalun, pre-race"},
+  {img:"img/lavaredo2019/lav1_wristband.jpg", cap:"Bib on the wrist two days early, like I could forget I signed up.", loc:"Cortina d'Ampezzo, Lavaredo bib collection"},
+  {img:"img/lavaredo2019/lav2_startline.jpg", cap:"Scouted the start line while it still had nothing to say.", loc:"Cortina d'Ampezzo, 3 days before Lavaredo"},
+  {img:"img/lavaredo2019/lav3_meadow.jpg", cap:"All smiles in the meadow. The meadow doesn't warn you what's next.", loc:"Above Cortina, Lavaredo familiarization run"},
+  {img:"img/lavaredo2019/lav4_ridge.jpg", cap:"Called it a rest day. The Dolomites didn't get the memo.", loc:"Dolomites ridge, 4 days before Lavaredo"},
+  {img:"img/lavaredo2019/lav5_town.jpg", cap:"Cortina's old town, before it filled with nervous strangers.", loc:"Cortina d'Ampezzo, pre-race"},
+  {img:"img/lavaredo2019/lav6_river.jpg", cap:"Stood by the loudest water in the valley and let it drown out the nerves.", loc:"Dolomites, rest day before Lavaredo"}
 ];
 
 const videos = [
-  {id:"bQwN1G8WMpg", t:"TEASER — Mt Fuji 100 Miles", d:"2025 · 168km · 6,254m+ · cut-off 44h30m"},
+  {id:"bQwN1G8WMpg", t:"TEASER — Mt Fuji 100 Miles", d:"2025 · 166km · 7,206m+ · cut-off 44h30m"},
   {id:"YSu9hholYdA", t:"Lavaredo Ultra Trail", d:"2019 · Singapore to Cortina d'Ampezzo, Italy"},
   {id:"oGXGuKD5jao", t:"Lavaredo — 120km / 5,800m+", d:"2019 · the full climb"},
   {id:"tiXtZXu-Cbk", t:"Lavaredo Ultra Trail", d:"2019 · race day"},
@@ -1041,7 +1047,7 @@ dInput.addEventListener('keydown', e => {
   if(e.key === 'Enter') e.preventDefault();
 });
 
-/* ---------------- FIELD NOTES (6 of 9, reshuffled each load) ---------------- */
+/* ---------------- FIELD NOTES (6 of 34, reshuffled each load) ---------------- */
 const notesGrid = document.getElementById('notesGrid');
 const chosenNotes = shuffle(notes).slice(0,6);
 chosenNotes.forEach((n)=>{
